@@ -359,6 +359,10 @@ endfor
 " Bring Y in line with D and C
 nnoremap Y y$
 
+" Make q; do the same thing as q: so I don't have to press shift between the q
+" and the ;
+nnoremap q; q:
+
 " map ., and ,. (and shift+those) to .* in insert and commnad line modes for easier globbing in regex patterns
 noremap! ., .*
 noremap! ,. .*
