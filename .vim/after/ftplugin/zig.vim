@@ -1,4 +1,4 @@
-" Run mtgeblack on the current file BB_SPECIFIC
+" Run fmt
 function! RunFmt()
 	execute "silent !zig fmt %"
 	redraw!

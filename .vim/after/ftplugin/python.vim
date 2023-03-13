@@ -1,6 +1,6 @@
-" Run mtgeblack on the current file BB_SPECIFIC
+" Format with black
 function! RunBlack()
-	execute "silent !mtgeblack %"
+	execute "silent !black %"
 	redraw!
 endfunction
 nnoremap <buffer> <localleader>f :call RunBlack()<CR>
