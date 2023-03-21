@@ -37,20 +37,6 @@ function! GP()
 endfunction
 command! GP call GP()
 
-" Enter git pr review, essentially
-function! GR()
-	tabedit
-	terminal git pr
-endfunction
-command! GR call GR()
-
-" Quit git pr review, essentially
-function! GQ()
-	bdelete! *git\ pr*
-	windo bdelete!
-endfunction
-command! GQ call GQ()
-
 " Put current file and linenum into anonymous register
 command! YankLinenum redir @" | echon expand('%:p')':'line('.') | redir END
 command! YL YankLinenum
@@ -96,8 +82,6 @@ endfunction
 command! LCD lcd %:p:h
 " delete the current buffer, leaving the previous buffer in its place
 command! -bang BD buffer #<bar>bdelete<bang> #
-" delete all the buffers in the open windows
-command! -bang BDW windo bdelete<bang>
 
 " Save the current buffer and source it (for vimrc files and snippets)
 augroup vim_commands
@@ -121,9 +105,6 @@ function! QuickFix_Toggle()
 	copen
 endfunction
 
-"" ABBREVIATIONS
-abbreviate pdb __import__("pdb").set_trace()
-
 "" SETTINGS
 " Disable bells, they're particularly annoying with Alt- ESC method
 set noeb vb t_vb=
@@ -131,10 +112,11 @@ set noeb vb t_vb=
 " Cool colors
 set termguicolors
 
+" Desert, baby
 colorscheme desert
 set background=dark
 
-" Search all lower = insensitive, any upper = sensitive
+" Search, all lower = insensitive, any upper = sensitive
 set ignorecase
 set smartcase
 set infercase
@@ -147,7 +129,7 @@ set hidden
 " disable annoying sticky comments
 set formatoptions-=cro
 set wildmenu
-set wildmode=longest:full
+set wildmode=list:longest,full
 " wildcharm does the same thing as <Tab>, but can be used in mapping where <Tab> doesn't work
 set wildcharm=<C-z>
 " make the mouse work in console vim
@@ -168,13 +150,8 @@ highlight ColorColumn guibg=#305955
 set diffopt+=vertical
 " Use histogram and indent-heuristic for nicer vimdiff
 set diffopt+=algorithm:histogram,indent-heuristic
-" Set line numbers
-set number
-set relativenumber
 " Preview substitutions. I previously used the traces.vim plugin for this
 set inccommand=split
-" Command to toggle line numbers
-command! TN set number! | set relativenumber!
 
 " settings which are different between vim and nvim
 if has('nvim')
@@ -300,6 +277,7 @@ nnoremap <Space> <Nop>
 let mapleader=" "
 let maplocalleader="\\"
 
+" Find files, buffers and symbols
 nnoremap <leader>e :find *
 nnoremap <leader>b :b <C-z>
 nnoremap <leader>] :tag 
@@ -414,12 +392,6 @@ nnoremap <silent> <leader>i :call Leap(1)<CR>
 " I never want to accidentally do this
 nnoremap <C-w>o :echo "Use :on[ly]"<CR>
 nnoremap <C-w><C-o> :echo "Use :on[ly]"<CR>
-
-" When in wildmenu, hidden files are ignored (despite not being in my wildignore!)
-" That's fine. It's probably what I would want anyway.
-" However, when I'm in wildmenu mode, I just want to hold down Ctrl and hit keys
-" So this makes <C-.> insert . and keep it moving
-cnoremap  .<C-z>
 
 "############### NVIM STUFF ####################"
 " Treesitter config
