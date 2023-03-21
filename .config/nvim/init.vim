@@ -1,7 +1,5 @@
 " Plugins
 call plug#begin()
-" Pretty
-Plug 'sainnhe/everforest'							        " A green-based colorscheme :)
 " Tim Pope
 Plug 'tpope/vim-vinegar'						            " Make netrw a little nicer
 Plug 'tpope/vim-surround'						            " More functionality for changing text surrounded by stuff
@@ -133,7 +131,7 @@ set noeb vb t_vb=
 " Cool colors
 set termguicolors
 
-colorscheme everforest
+colorscheme desert
 set background=dark
 
 " Search all lower = insensitive, any upper = sensitive
