@@ -17,6 +17,7 @@ Plug 'yssl/QFEnter'                                         " Open quickfix item
 " nvim stuff
 Plug 'neovim/nvim-lspconfig'                                " lspconfig
 Plug 'nvim-lua/plenary.nvim'                                " Some lua stuff
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }    " Fuzzy find
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Sit on a tree to understand it better
 call plug#end()
 
@@ -50,6 +51,7 @@ function! RemoveQFItem()
 	:copen
 endfunction
 :command! RemoveQFItem :call RemoveQFItem()
+
 " Use map <buffer> to only map dd in the quickfix window. Requires +localmap
 autocmd FileType qf map <buffer> dd :RemoveQFItem<CR>
 
@@ -433,7 +435,10 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
--- Oil
-require("oil").setup()
-vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
+-- Telescope
+local builtin = require('telescope.builtin')
+vim.keymap.set('n', '<leader>e', builtin.find_files, {})
+vim.keymap.set('n', '<leader>b', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 EOF
