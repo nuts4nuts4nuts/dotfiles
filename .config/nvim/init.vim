@@ -14,10 +14,11 @@ Plug 'romainl/vim-cool'                                     " Better hlsearch be
 Plug 'romainl/vim-qf'                                       " Tame the quickfix menu
 Plug 'yssl/QFEnter'                                         " Open quickfix item in last focused window
 " nvim stuff
-Plug 'neovim/nvim-lspconfig'                                " lspconfig
 Plug 'nvim-lua/plenary.nvim'                                " Some lua stuff
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.1' }    " Fuzzy find
+Plug 'neovim/nvim-lspconfig'                                " lspconfig
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Sit on a tree to understand it better
+Plug 'nvim-treesitter/playground'
 call plug#end()
 
 "" FUNCTIONS
@@ -347,7 +348,7 @@ set iskeyword+=-
 
 " Open the vimrc, this mapping shadows some select mode thing, but I've never intentionally used
 " select mode anyway
-nnoremap gh :drop $MYVIMRC<CR>
+nnoremap gh :tabe $MYVIMRC<CR>
 
 " ===== WINDOW MAPPINGS ===== "
 " Terminal mappings
@@ -408,6 +409,8 @@ require'nvim-treesitter.configs'.setup {
                       "make",
                       "perl",
                       "python",
+                      "query",
+                      "racket",
                       "regex",
                       "rust",
                       "scheme",
@@ -432,6 +435,28 @@ require'nvim-treesitter.configs'.setup {
         node_decremental = "grm",
     },
   },
+}
+
+-- Treesitter playground
+require "nvim-treesitter.configs".setup {
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
+  }
 }
 
 -- Telescope
