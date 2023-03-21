@@ -3,7 +3,6 @@ call plug#begin()
 " Tim Pope
 Plug 'tpope/vim-surround'                                   " More functionality for changing text surrounded by stuff
 Plug 'tpope/vim-fugitive'                                   " Doing git stuff from vim
-Plug 'tpope/vim-rhubarb'                                    " The hub to fugitive's git
 Plug 'tpope/vim-repeat'                                     " Make . work for some plugin action too (by default surround, speeddating, unimpaired, easyclip)
 Plug 'tpope/vim-unimpaired'                                 " Expand the mappings for [] movements
 Plug 'tpope/vim-sensible'                                   " Sensible defaults, replacing a lot of my settings

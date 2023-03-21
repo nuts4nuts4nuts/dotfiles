@@ -8,6 +8,8 @@ set -o vi
 bind 'set show-mode-in-prompt on'
 stty sane # should normalize backspace issues?
 
+alias conf="git --git-dir=$HOME/dotfiles.git/ --work-tree=$HOME"
+
 alias gpr="git pr"
 alias gis="git status"
 alias ls="ls --color"
