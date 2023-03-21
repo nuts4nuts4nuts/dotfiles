@@ -1,24 +1,24 @@
 " Plugins
 call plug#begin()
 " Tim Pope
-Plug 'tpope/vim-vinegar'						            " Make netrw a little nicer
-Plug 'tpope/vim-surround'						            " More functionality for changing text surrounded by stuff
-Plug 'tpope/vim-fugitive'						            " Doing git stuff from vim
-Plug 'tpope/vim-rhubarb'						            " The hub to fugitive's git
-Plug 'tpope/vim-repeat'							            " Make . work for some plugin action too (by default surround, speeddating, unimpaired, easyclip)
-Plug 'tpope/vim-unimpaired'						            " Expand the mappings for [] movements
-Plug 'tpope/vim-sensible'						            " Sensible defaults, replacing a lot of my settings
-Plug 'tpope/vim-commentary'						            " Comment with gc
+Plug 'tpope/vim-surround'                                   " More functionality for changing text surrounded by stuff
+Plug 'tpope/vim-fugitive'                                   " Doing git stuff from vim
+Plug 'tpope/vim-rhubarb'                                    " The hub to fugitive's git
+Plug 'tpope/vim-repeat'                                     " Make . work for some plugin action too (by default surround, speeddating, unimpaired, easyclip)
+Plug 'tpope/vim-unimpaired'                                 " Expand the mappings for [] movements
+Plug 'tpope/vim-sensible'                                   " Sensible defaults, replacing a lot of my settings
+Plug 'tpope/vim-commentary'                                 " Comment with gc
 " Misc
-Plug 'sheerun/vim-polyglot'						            " Support for lots of languages
-Plug 'ludovicchabant/vim-gutentags'			                " Automated tag generation
-Plug 'romainl/vim-cool'							            " Better hlsearch behavior
-Plug 'romainl/vim-qf'							            " Tame the quickfix menu
-Plug 'yssl/QFEnter'								            " Open quickfix item in last focused window
+Plug 'sheerun/vim-polyglot'                                 " Support for lots of languages
+Plug 'ludovicchabant/vim-gutentags'                         " Automated tag generation
+Plug 'romainl/vim-cool'                                     " Better hlsearch behavior
+Plug 'romainl/vim-qf'                                       " Tame the quickfix menu
+Plug 'yssl/QFEnter'                                         " Open quickfix item in last focused window
 " nvim stuff
-Plug 'neovim/nvim-lspconfig'						        " lspconfig
+Plug 'neovim/nvim-lspconfig'                                " lspconfig
 Plug 'nvim-lua/plenary.nvim'                                " Some lua stuff
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} " Sit on a tree to understand it better
+Plug 'stevearc/oil.nvim'                                    " A new version of vinegar
 call plug#end()
 
 "" FUNCTIONS
@@ -223,10 +223,6 @@ if executable('ag')
 	set grepprg=ag\ --vimgrep
 endif
 
-" Use the unnamed register for interaction with the clipboard
-set clipboard+=unnamed
-set clipboard+=unnamedplus
-
 " completion options
 set completeopt=menu,menuone
 
@@ -394,8 +390,8 @@ nnoremap <C-w>o :echo "Use :on[ly]"<CR>
 nnoremap <C-w><C-o> :echo "Use :on[ly]"<CR>
 
 "############### NVIM STUFF ####################"
-" Treesitter config
 lua << EOF
+-- Treesitter
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {"bash",
                       "c",
@@ -437,4 +433,8 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+
+-- Oil
+require("oil").setup()
+vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
 EOF
