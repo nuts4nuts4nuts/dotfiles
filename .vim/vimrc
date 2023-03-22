@@ -41,10 +41,6 @@ set colorcolumn=80
 highlight ColorColumn guibg=#505050
 " Always open diffs in vertical splits
 set diffopt+=vertical
-" Use histogram and indent-heuristic for nicer vimdiff
-set diffopt+=algorithm:histogram,indent-heuristic
-" Preview substitutions. I previously used the traces.vim plugin for this
-set inccommand=split
 
 " settings which are different between vim and nvim
 if has('nvim')
@@ -282,12 +278,12 @@ nnoremap gh :tabe $MYVIMRC<CR>
 
 " ===== WINDOW MAPPINGS ===== "
 " Terminal mappings
-" Start in insert mode
-autocmd TermOpen * startinsert
 " Open a terminal in the current split
-nnoremap <leader><CR> :terminal<CR>
-" paste
-tnoremap <C-v> <C-\><C-n>pA
+if has('nvim')
+    nnoremap <leader><CR> :terminal<CR>
+else
+    nnoremap <leader><CR> :terminal ++curwin<CR>
+endif
 " go to normal mode 
 tnoremap <C-w><C-n> <C-\><C-n>
 " go back to terminal mode
