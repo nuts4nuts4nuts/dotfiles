@@ -1,4 +1,4 @@
-" Plugins
+" PLUGINS {{{
 call plug#begin()
 " Tim Pope
 Plug 'tpope/vim-commentary'                                 " Comment with gc
@@ -17,8 +17,9 @@ Plug 'romainl/vim-cool'                                     " Better hlsearch be
 Plug 'romainl/vim-qf'                                       " Tame the quickfix menu
 Plug 'yssl/QFEnter'                                         " Open quickfix item in last focused window
 call plug#end()
+" }}}
 
-"" SETTINGS
+" SETTINGS {{{
 " Disable bells, they're particularly annoying with Alt- ESC method
 set noeb vb t_vb=
 
@@ -71,12 +72,6 @@ else
 	set termwinscroll=100000
 endif
 
-" My tabs should default to 4 spaces
-set shiftwidth=0 " if 0, use value of tabstop
-set softtabstop=-1 " If negative, use value of shiftwidth (which uses tabstop)
-set tabstop=4
-set expandtab
-
 " Show the number of matches for a search in the bottom right corner
 set shortmess-=S
 
@@ -110,14 +105,21 @@ endif
 set completeopt=menu,menuone
 
 " default foldmethod for simplicity
-set foldmethod=indent
+set foldmethod=marker
 " Kinda hacky way of defaulting to unfolded
 set foldlevel=99
 
 " toggle all folded
 nnoremap <expr> z<Space> &foldlevel == 0 ? ":set foldlevel=99<CR>" : ":set foldlevel=0<CR>"
 
-"" FUNCTIONS
+" Define tags only by line number, reduces filesize and help with some other things at the cost of
+" potentially getting out of sync. Fortunately, we regen tags file all the time.
+let g:gutentags_ctags_extra_args = ["-n"]
+" Use projectionist files as project roots for gutentags too
+let g:gutentags_project_root = [".projections.json"]
+" }}}
+
+" FUNCTIONS {{{
 " Put current file and linenum into anonymous register
 command! YankLinenum redir @" | echon expand('%:p')':'line('.') | redir END
 command! YL YankLinenum
@@ -189,7 +191,40 @@ augroup me
 	autocmd FileType qf map <buffer> dd :RemoveQFItem<CR>
 augroup END
 
-"" KEYS
+" Open the current buffer in a new tab and call git status
+function! GS()
+	tab split
+	Git
+	resize 15
+endfunction
+command! GS call GS()
+
+" Set upstream branch and push
+function! GP()
+	let branch_name = FugitiveHead()
+	execute "Git push --set-upstream origin " . branch_name
+endfunction
+command! GP call GP()
+
+function! SetStatusLine()
+	set statusline=
+	set statusline+=%1*%{getcwd()}\/
+	set statusline+=%0*%f
+	set statusline+=%0*\ %m
+
+	set statusline+=%=
+
+	set statusline+=%{gutentags#statusline()}
+	set statusline+=%{FugitiveStatusline()}
+	set statusline+=\ %y
+	set statusline+=\ %l:%c
+	set statusline+=\ %P
+endfunction
+command! SetStatusLine call SetStatusLine()
+SetStatusLine
+" }}}
+
+" KEYS {{{
 " ===== LEADER MAPPINGS ===== "
 nnoremap <Space> <Nop>
 let mapleader=" "
@@ -294,40 +329,4 @@ nnoremap <silent> <leader>i :call Leap(1)<CR>
 " I never want to accidentally do this
 nnoremap <C-w>o :echo "Use :on[ly]"<CR>
 nnoremap <C-w><C-o> :echo "Use :on[ly]"<CR>
-" Open the current buffer in a new tab and call git status
-function! GS()
-	tab split
-	Git
-	resize 15
-endfunction
-command! GS call GS()
-
-" Set upstream branch and push
-function! GP()
-	let branch_name = FugitiveHead()
-	execute "Git push --set-upstream origin " . branch_name
-endfunction
-command! GP call GP()
-
-" Define tags only by line number, reduces filesize and help with some other things at the cost of
-" potentially getting out of sync. Fortunately, we regen tags file all the time.
-let g:gutentags_ctags_extra_args = ["-n"]
-" Use projectionist files as project roots for gutentags too
-let g:gutentags_project_root = [".projections.json"]
-
-function! SetStatusLine()
-	set statusline=
-	set statusline+=%1*%{getcwd()}\/
-	set statusline+=%0*%f
-	set statusline+=%0*\ %m
-
-	set statusline+=%=
-
-	set statusline+=%{gutentags#statusline()}
-	set statusline+=%{FugitiveStatusline()}
-	set statusline+=\ %y
-	set statusline+=\ %l:%c
-	set statusline+=\ %P
-endfunction
-command! SetStatusLine call SetStatusLine()
-SetStatusLine
+" }}}
