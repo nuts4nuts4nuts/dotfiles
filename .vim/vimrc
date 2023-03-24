@@ -202,7 +202,7 @@ nnoremap <leader>et :Etest
 " General stuff
 nnoremap <leader>f :find *
 nnoremap <leader>b :b <C-z>
-nnoremap <leader>] :tag-
+nnoremap <leader>] :tag 
 
 " grep
 nnoremap <leader>/ :silent grep! "" \| redraw!<C-Left><C-Left><Left><Left>
