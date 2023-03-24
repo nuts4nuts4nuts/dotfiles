@@ -264,23 +264,18 @@ nnoremap gh :drop $MYVIMRC<CR>
 " Open a terminal in the current split
 if has('nvim')
 	nnoremap <leader><CR> :terminal<CR>
+	" go to normal mode 
+	tnoremap <C-w><C-n> <C-\><C-n>
+	" <C-6>
+	tnoremap  <C-\><C-n>:b #<CR>
+	" change windows
+	tnoremap <C-w><C-h> <C-\><C-n><C-w>h
+	tnoremap <C-w><C-j> <C-\><C-n><C-w>j
+	tnoremap <C-w><C-k> <C-\><C-n><C-w>k
+	tnoremap <C-w><C-l> <C-\><C-n><C-w>l
 else
 	nnoremap <leader><CR> :terminal ++curwin<CR>
 endif
-" go to normal mode 
-tnoremap <C-w><C-n> <C-\><C-n>
-" go back to terminal mode
-nnoremap <C-w><C-n> A
-inoremap <C-w><C-n> <Esc>
-" <C-6>
-tnoremap  <C-\><C-n>:b #<CR>
-" Refresh terminal
-tnoremap <C-l> <C-\><C-n><C-l>
-" change windows
-tnoremap <C-w><C-h> <C-\><C-n><C-w>h
-tnoremap <C-w><C-j> <C-\><C-n><C-w>j
-tnoremap <C-w><C-k> <C-\><C-n><C-w>k
-tnoremap <C-w><C-l> <C-\><C-n><C-w>l
 
 " omni complete with <C-L> in insert mode
 inoremap <C-l> <C-x><C-o>
