@@ -5,11 +5,12 @@ Plug 'tpope/vim-commentary'                                 " Comment with gc
 Plug 'tpope/vim-dispatch'                                   " Async make and other joys
 Plug 'tpope/vim-fugitive'                                   " Doing git stuff from vim
 Plug 'tpope/vim-projectionist'                              " Project definitions
-Plug 'tpope/vim-repeat'                                     " Make . work for some plugin action too (by default surround, speeddating, unimpaired, easyclip)
+Plug 'tpope/vim-repeat'                                     " Make . work for some plugin actions too (surround, unimpaired, etc...)
 Plug 'tpope/vim-sensible'                                   " Sensible defaults, replacing a lot of my settings
 Plug 'tpope/vim-sleuth'                                     " Figure out indentation from context
 Plug 'tpope/vim-surround'                                   " More functionality for changing text surrounded by stuff
 Plug 'tpope/vim-unimpaired'                                 " Expand the mappings for [] movements
+Plug 'tpope/vim-vinegar'                                    " Improve netrw
 " Other
 Plug 'ludovicchabant/vim-gutentags'                         " Automated tag generation
 Plug 'romainl/vim-cool'                                     " Better hlsearch behavior
@@ -195,9 +196,13 @@ let mapleader=" "
 let maplocalleader="\\"
 
 " Find files, buffers and symbols
-nnoremap <leader>e :find *
+" Projectionist stuff
+nnoremap <leader>es :Esrc 
+nnoremap <leader>et :Etest 
+" General stuff
+nnoremap <leader>f :find *
 nnoremap <leader>b :b <C-z>
-nnoremap <leader>] :tag 
+nnoremap <leader>] :tag-
 
 " grep
 nnoremap <leader>/ :silent grep! "" \| redraw!<C-Left><C-Left><Left><Left>
@@ -236,13 +241,6 @@ nnoremap gf gF
 nnoremap gF gf
 vnoremap gf gF
 vnoremap gF gf
-" Swap ' and `
-for first in ['', 'g', '[', ']']
-	for mode in ['n', 'x', 'o']
-		execute mode . 'noremap ' . first . "' " . first . "`"
-		execute mode . 'noremap ' . first . "` " . first . "'"
-	endfor
-endfor
 
 " Bring Y in line with D and C
 nnoremap Y y$
@@ -289,11 +287,6 @@ inoremap <C-l> <C-x><C-o>
 
 " Toggle the quickfix window
 nnoremap <silent> <F2> :call QuickFix_Toggle()<CR>
-
-" For conceal markers.
-if has('conceal')
-	set conceallevel=2 concealcursor=
-endif
 
 " Leaps!
 nnoremap <silent> <leader>o :call Leap(0)<CR>
