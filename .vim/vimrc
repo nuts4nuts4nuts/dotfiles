@@ -18,7 +18,6 @@ Plug 'romainl/vim-qf'                                       " Tame the quickfix 
 Plug 'yssl/QFEnter'                                         " Open quickfix item in last focused window
 call plug#end()
 " }}}
-
 " SETTINGS {{{
 " Disable bells, they're particularly annoying with Alt- ESC method
 set noeb vb t_vb=
@@ -118,7 +117,6 @@ let g:gutentags_ctags_extra_args = ["-n"]
 " Use projectionist files as project roots for gutentags too
 let g:gutentags_project_root = [".projections.json"]
 " }}}
-
 " FUNCTIONS {{{
 " Put current file and linenum into anonymous register
 command! YankLinenum redir @" | echon expand('%:p')':'line('.') | redir END
@@ -223,7 +221,6 @@ endfunction
 command! SetStatusLine call SetStatusLine()
 SetStatusLine
 " }}}
-
 " KEYS {{{
 " ===== LEADER MAPPINGS ===== "
 nnoremap <Space> <Nop>
