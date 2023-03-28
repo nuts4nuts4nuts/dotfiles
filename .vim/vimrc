@@ -1,23 +1,24 @@
 " PLUGINS {{{
 call plug#begin()
 " Tim Pope
-Plug 'tpope/vim-commentary'                                 " Comment with gc
-Plug 'tpope/vim-dispatch'                                   " Async make and other joys
-Plug 'tpope/vim-fugitive'                                   " Doing git stuff from vim
-Plug 'tpope/vim-projectionist'                              " Project definitions
-Plug 'tpope/vim-repeat'                                     " Make . work for some plugin actions too (surround, unimpaired, etc...)
-Plug 'tpope/vim-sensible'                                   " Sensible defaults, replacing a lot of my settings
-Plug 'tpope/vim-sleuth'                                     " Figure out indentation from context
-Plug 'tpope/vim-surround'                                   " More functionality for changing text surrounded by stuff
-Plug 'tpope/vim-unimpaired'                                 " Expand the mappings for [] movements
-Plug 'tpope/vim-vinegar'                                    " Improve netrw
+Plug 'tpope/vim-commentary'         " Comment with gc
+Plug 'tpope/vim-dispatch'           " Async make and other joys
+Plug 'tpope/vim-fugitive'           " Doing git stuff from vim
+Plug 'tpope/vim-projectionist'      " Project definitions
+Plug 'tpope/vim-repeat'             " Make . work for some plugin actions too (surround, unimpaired, etc...)
+Plug 'tpope/vim-sensible'           " Sensible defaults, replacing a lot of my settings
+Plug 'tpope/vim-sleuth'             " Figure out indentation from context
+Plug 'tpope/vim-surround'           " More functionality for changing text surrounded by stuff
+Plug 'tpope/vim-unimpaired'         " Expand the mappings for [] movements
+Plug 'tpope/vim-vinegar'            " Improve netrw
 " Other
-Plug 'ludovicchabant/vim-gutentags'                         " Automated tag generation
-Plug 'romainl/vim-cool'                                     " Better hlsearch behavior
-Plug 'romainl/vim-qf'                                       " Tame the quickfix menu
-Plug 'yssl/QFEnter'                                         " Open quickfix item in last focused window
+Plug 'ludovicchabant/vim-gutentags' " Automated tag generation
+Plug 'romainl/vim-cool'             " Better hlsearch behavior
+Plug 'romainl/vim-qf'               " Tame the quickfix menu
+Plug 'yssl/QFEnter'                 " Open quickfix item in last focused window
 call plug#end()
 " }}}
+
 " SETTINGS {{{
 " Disable bells, they're particularly annoying with Alt- ESC method
 set noeb vb t_vb=
@@ -117,6 +118,7 @@ let g:gutentags_ctags_extra_args = ["-n"]
 " Use projectionist files as project roots for gutentags too
 let g:gutentags_project_root = [".projections.json"]
 " }}}
+
 " FUNCTIONS {{{
 " Put current file and linenum into anonymous register
 command! YankLinenum redir @" | echon expand('%:p')':'line('.') | redir END
@@ -221,6 +223,7 @@ endfunction
 command! SetStatusLine call SetStatusLine()
 SetStatusLine
 " }}}
+
 " KEYS {{{
 " ===== LEADER MAPPINGS ===== "
 nnoremap <Space> <Nop>
