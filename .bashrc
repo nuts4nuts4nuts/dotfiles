@@ -52,3 +52,17 @@ export EDITOR="nvim"
 export BAT_THEME="zenburn"
 export HISTSIZE=10000
 export HISTFILESIZE=10000
+
+pathadd() {
+    if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
+        PATH="$1${PATH:+"$PATH:"}"
+    fi
+}
+
+pathadd "/Applications/Racket v8.7/bin/"
+pathadd "/Applications/love.app/Contents/MacOS"
+pathadd "/opt/homebrew/opt/openjdk/bin"
+pathadd "/Users/davidjohnston/Library/Python/3.8/bin"
+
+# load brew stuff
+eval "$(/opt/homebrew/bin/brew shellenv)"
